@@ -1,5 +1,6 @@
 package com.sda.twittermvc.controllers;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,21 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 public class TwitterMvcApplicationTests {
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+
+    @Test
+    public void shouldReturnOkStatusWhenGetMessageEndpoint() throws Exception {
+        //given
+        String endpoint = "/message";
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
     @Test
     public void shouldReturnMessageView() throws Exception {
+
         //when
         mockMvc.perform(MockMvcRequestBuilders.post("/message"))
                 //then
@@ -30,5 +42,18 @@ public class TwitterMvcApplicationTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 // zwraca nazwe widoku
                 .andExpect(MockMvcResultMatchers.view().name("showMessage"));
+    }
+
+    @Test
+    public void shouldCreateMessageWithParam() throws Exception {
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.post("/message"))
+                //then
+                // zwraca status widoku
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                // zwraca nazwe widoku
+                .andExpect(MockMvcResultMatchers.model().attribute("message",
+                        Matchers.hasProperty("content",
+                                Matchers.is("wiadomosc"))));
     }
 }
