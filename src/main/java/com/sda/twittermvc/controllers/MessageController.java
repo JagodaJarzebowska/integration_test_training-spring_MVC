@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MessageController {
 
     @GetMapping
-    public void message(){
+    public void message(@ModelAttribute Message message){
 
     }
 
     @PostMapping
-    public void createMessage(@ModelAttribute Message message){
-
+    public String createMessage(@ModelAttribute Message message){
+        return "show-message";
     }
 
 //    @PostMapping

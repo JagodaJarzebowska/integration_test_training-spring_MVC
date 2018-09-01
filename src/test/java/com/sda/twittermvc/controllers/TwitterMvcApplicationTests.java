@@ -44,8 +44,24 @@ public class TwitterMvcApplicationTests {
                 // zwraca nazwe widoku
                 .andExpect(MockMvcResultMatchers.model()
                         .attribute("message", Matchers
-                                .hasProperty("content", Matchers.is("msg content"))));
+                                .hasProperty("content", Matchers.is("msg content"))))
+        .andExpect(MockMvcResultMatchers.view().name("show-message"));
     }
+
+    @Test
+    public void shouldCreateEmptyMessageWhenGetMessageEndpoint() throws Exception {
+        //given
+        String endpoint = "/message";
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.post(endpoint))
+                //then
+                .andExpect(MockMvcResultMatchers.model().attributeExists("message"));
+    }
+
+
+
+
+
 
     @Test
     public void shouldReturnMessageView() throws Exception {
