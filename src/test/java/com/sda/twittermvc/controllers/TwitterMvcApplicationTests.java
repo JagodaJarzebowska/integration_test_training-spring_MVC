@@ -33,6 +33,21 @@ public class TwitterMvcApplicationTests {
     }
 
     @Test
+    public void shouldCreateMessageWhenPostMessageEndpoint() throws Exception {
+        //given
+        String endpoint = "/message";
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.post(endpoint).param("content","msg content"))
+                //then
+                .andExpect(MockMvcResultMatchers.status()
+                        .isOk())
+                // zwraca nazwe widoku
+                .andExpect(MockMvcResultMatchers.model()
+                        .attribute("message", Matchers
+                                .hasProperty("content", Matchers.is("msg content"))));
+    }
+
+    @Test
     public void shouldReturnMessageView() throws Exception {
 
         //when
