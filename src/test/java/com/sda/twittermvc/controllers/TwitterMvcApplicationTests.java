@@ -23,6 +23,15 @@ public class TwitterMvcApplicationTests {
     private MockMvc mockMvc;
 
     @Test
+    public void shouldRejectAccessToSecuredEndpointWhenNoCredentialsArePasser() throws Exception {
+        String endpoint = "/message";
+
+        mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
+
+    @Test
     public void shouldReturnOkStatusWhenGetMessageEndpoint() throws Exception {
         //given
         String endpoint = "/message";
