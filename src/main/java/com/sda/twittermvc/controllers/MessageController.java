@@ -10,6 +10,6 @@ public class MessageController {
 
     @PostMapping
     public String createMessage(){
-        return "message";
+        return "showMessage";
     }
 }

@@ -1,4 +1,4 @@
-package com.sda.twittermvc.twittermvc;
+package com.sda.twittermvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
